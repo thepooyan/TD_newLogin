@@ -3,17 +3,6 @@ import axios from "axios"
 const newLogin = $("#newLogin")
 // if (newLogin) {
 
-    type success<T> = [T, null]
-    type fail = [null, Error]
-    const safe = async <T>(pr: () => Promise<T>):Promise<success<T> | fail> => {
-        try {
-            debugger
-            let res = await pr()
-            return [res, null] as success<T>
-        }catch(e) {
-            return [null, e] as fail
-        }
-    }
     const activateSection = (sectionId: string) => {
         const target = $(sectionId)
         const targetGroup = target.attr("data-group") || "";
@@ -23,6 +12,13 @@ const newLogin = $("#newLogin")
     function formToJSON(form: HTMLFormElement) {
         const data = new FormData(form)
         return Object.fromEntries(data.entries())
+    }
+    const setFormLoading = (form, value: boolean) => {
+        const btn = $(form).find("button")
+        if (value)
+            btn.addClass("loading")
+        else
+            btn.removeClass("loading")
     }
 
     $('[data-target]').on("click", (e) => {
@@ -38,7 +34,7 @@ const newLogin = $("#newLogin")
 
     $("#login-otp").on("submit", async e => {
         e.preventDefault()
-        return
+        setFormLoading(e.currentTarget, true)
         const data = formToJSON(e.target as HTMLFormElement)
         const url = e.target.dataset.submitto;
         if (!url) return
@@ -47,9 +43,9 @@ const newLogin = $("#newLogin")
             alert("error")
             return null
         })
+        setFormLoading(e.currentTarget, false)
         if (!res) return
         alert("success")
     })
 
-    $(".btn").on("click", function() { $(this).toggleClass("loading") })
 // }
