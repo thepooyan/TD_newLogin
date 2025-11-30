@@ -28,6 +28,7 @@
         max-width: 35rem;
         margin: auto;
         position: relative;
+        overflow: hidden;
 
         .head {
             display: flex;
@@ -148,4 +149,8 @@
     &.between {
         justify-content: space-between;
     }
+}
+
+[data-target] {
+    user-select: none;
 }
