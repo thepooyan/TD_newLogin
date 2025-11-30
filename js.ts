@@ -80,14 +80,18 @@ const newLogin = $("#newLogin")
         if (!validationItems.length) return
 
         ele.on("input", (e) => {
-            validationItems.forEach(vi => {
-
+            let noErrors = true;
+            for (const vi of validationItems) {
                 const error = validate(ele.val() as string, vi)
                 if (error) {
                     showError(error, ele)
-                    return
+                    noErrors = false;
+                    break
                 }
-            })
+            }
+            if (noErrors && ele.next().hasClass("validation-error")) {
+                ele.next().text("")
+            }
         })
     })
 
