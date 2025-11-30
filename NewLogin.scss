@@ -1,14 +1,27 @@
 @use "./Content/components/font-sizes";
 
 :root {
+    --background: white;
+    --foreground: black;
     --primary: #2589CA;
+    --primary-foreground: white;
+    --link: #1E4AE9;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--foreground);
 }
 
 #newLogin {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    gap: 2rem;
     height: 100dvh;
+    max-width: 35rem;
+    margin: auto;
 
     .head {
         display: flex;
@@ -24,5 +37,22 @@
             font-size: var(--text-3xl);
             line-height: 2.6rem;
         }
+    }
+    .btn {
+        width: 100%;
+    }
+}
+
+.btn {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+}
+
+.link {
+    color: var(--link);
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
     }
 }
