@@ -46,17 +46,25 @@
 
         .section {
             width: 100%;
+            display: none;
+
+            &.active {
+                display: block;
+            }
             
             &#login {
                 .tabs {
                     display: flex;
                     justify-content: center;
+                    margin-bottom: 3rem;
+
                     button {
                         background: none;
-                        border: 1px solid transparent;
+                        border: 2px solid transparent;
                         font-size: var(--text-lg);
                         padding: 1rem;
                         border-radius: var(--radius);
+                        flex-basis: 50%;
 
                         &.active {
                             font-weight: bold;
