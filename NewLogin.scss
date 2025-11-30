@@ -1,16 +1,18 @@
 @use "./Content/components/font-sizes";
 
 :root {
-    --background: white;
-    --foreground: black;
+    --background: #E7F3FE;
+    --foreground: #363636;
     --primary: #2589CA;
     --primary-foreground: white;
     --link: #1E4AE9;
+    --radius: 8px;
 }
 
 #newLogin {
     background-color: var(--background);
     color: var(--foreground);
+    font-size: var(--text-md);
 
     .container {
         display: flex;
@@ -46,6 +48,8 @@
 .btn {
     background-color: var(--primary);
     color: var(--primary-foreground);
+    padding: 0.8rem 0;
+    border-radius: var(--radius);
 }
 
 .link {
