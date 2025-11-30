@@ -23,6 +23,22 @@ const newLogin = $("#newLogin")
             btn.removeAttr("disabled")
         }
     }
+    const validationRules: Record<string, {func: (val: string)=> boolean, msg: string} | undefined> = {
+        req: {
+            func: (val:string) => val.length > 0,
+            msg: "لطفا خالی نگذارید"
+        },
+        mobile: {
+            func: (val: string) => /^\d{11}$/.test(val),
+            msg: "شماره موبایل صحیح نمیباشد"
+        }
+    }
+    const validate = (input:string, rule:string) => {
+        const validator = validationRules[rule]
+        if (!validator) throw new Error(`can't find validator for ${rule}`)
+        if (!validator.func(input)) return validator.msg
+        return null
+    }
 
     $('[data-target]').on("click", (e) => {
         const el = $(e.currentTarget)
@@ -49,6 +65,24 @@ const newLogin = $("#newLogin")
         setFormLoading(e.currentTarget, false)
         if (!res) return
         alert("success")
+    })
+
+    $("[data-val]").each((_, el) => {
+        const ele = $(el)
+        const validationItems = ele.attr("data-val")?.split(",") || []
+
+        if (!validationItems.length) return
+
+        ele.on("input", (e) => {
+            validationItems.forEach(vi => {
+
+                const error = validate(ele.val() as string, vi)
+                if (error) {
+                    console.log(error)
+                    return
+                }
+            })
+        })
     })
 
 // }
