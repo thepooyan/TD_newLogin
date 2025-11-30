@@ -57,12 +57,14 @@
                 gap: 2rem;
                 opacity: 0;
                 visibility: hidden;
-                transition: .2s opacity;
+                transform: translateX(1rem);
 
                 &.active {
                     opacity: 1;
+                    transition: .2s all;
                     visibility: visible;
                     position: static;
+                    transform: translateX(0rem);
                 }
             }
         }
