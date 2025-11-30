@@ -113,6 +113,12 @@
             align-items: center;
             gap: .2rem;
         }
+
+        .inputs {
+            > *:not(:last-child) {
+                margin-bottom: 1rem;
+            }
+        }
     }
 }
 
