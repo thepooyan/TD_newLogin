@@ -11,6 +11,7 @@
     --shadow: 0px 0px 8px 0px #2086C873;
     --input: #FAFAFA;
     --input-foreground: #9E9E9E;
+    --destructive: #F80000;
 }
 
 #newLogin {
@@ -190,6 +191,10 @@
     &.between {
         justify-content: space-between;
     }
+}
+
+.validation-error {
+    color: var(--destructive);
 }
 
 [data-target] {

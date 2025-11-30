@@ -39,6 +39,12 @@ const newLogin = $("#newLogin")
         if (!validator.func(input)) return validator.msg
         return null
     }
+    const showError = (msg: string, $input) => {
+        if (!$input.next().hasClass("validation-error")) {
+            return $("<span><span/>").addClass("validation-error").text(msg).insertAfter($input)
+        }
+        $input.next().text(msg)
+    }
 
     $('[data-target]').on("click", (e) => {
         const el = $(e.currentTarget)
@@ -78,7 +84,7 @@ const newLogin = $("#newLogin")
 
                 const error = validate(ele.val() as string, vi)
                 if (error) {
-                    console.log(error)
+                    showError(error, ele)
                     return
                 }
             })
