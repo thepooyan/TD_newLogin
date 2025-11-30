@@ -372,35 +372,38 @@
         </p>
       </div>
 
-      <div id="animationRail">
+      <div class="animationRail">
         <section id="login" class="section active" data-group="login">
           <div class="tabs">
             <button data-group="tabBtn" data-target="#login-otp" class="active">ورود با کد یکبار مصرف</button>
             <button data-group="tabBtn" data-target="#login-pass"> ورود با رمز عبور </button>
           </div>
 
-          <form id="login-otp" class=" active" data-group="login-inner">
-            <input class="input" placeholder="شماره موبایل"/>
-            <button class="btn">
-              دریافت  کد
-            </button>
-          </form>
-          <form id="login-pass" class="" data-group="login-inner">
-            <input class="input" placeholder="شماره موبایل"/>
-            <input class="input" placeholder="شماره موبایل"/>
-            <div class="flex between">
-              <label>
-                <input type="checkbox"/>
-                مرا بخاطر بسپار 
-              </label>
-              <span class="link" data-target="#forgetPassword">
-                فراموشی رمز عبور
-              </span>
-            </div>
-            <button class="btn">
-              ورود
-            </button>
-          </form> 
+          <div class="animationRail">
+            <form id="login-otp" class="section active" data-group="login-inner">
+              <input class="input" placeholder="شماره موبایل"/>
+              <button class="btn">
+                دریافت  کد
+              </button>
+            </form>
+            <form id="login-pass" class="section" data-group="login-inner">
+              <input class="input" placeholder="شماره موبایل"/>
+              <input class="input" placeholder="شماره موبایل"/>
+              <div class="flex between">
+                <label>
+                  <input type="checkbox"/>
+                  مرا بخاطر بسپار 
+                </label>
+                <span class="link" data-target="#forgetPassword">
+                  فراموشی رمز عبور
+                </span>
+              </div>
+              <button class="btn">
+                ورود
+              </button>
+            </form> 
+          </div>
+
           <p class="text-center">
             ثبت نام نکرده اید؟
             <span class="link" data-target="#signup">
