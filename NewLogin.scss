@@ -1,0 +1,28 @@
+@use "./Content/components/font-sizes";
+
+:root {
+    --primary: #2589CA;
+}
+
+#newLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+
+    .head {
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+
+        img {
+            width: 11rem;
+        }
+        p {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: var(--text-3xl);
+            line-height: 2.6rem;
+        }
+    }
+}
