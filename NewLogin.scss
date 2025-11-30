@@ -8,38 +8,38 @@
     --link: #1E4AE9;
 }
 
-body {
+#newLogin {
     background-color: var(--background);
     color: var(--foreground);
-}
 
-#newLogin {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 2rem;
-    height: 100dvh;
-    max-width: 35rem;
-    margin: auto;
-
-    .head {
+    .container {
         display: flex;
-        align-items: flex-end;
-        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 2rem;
+        height: 100dvh;
+        max-width: 35rem;
+        margin: auto;
 
-        img {
-            width: 11rem;
+        .head {
+            display: flex;
+            align-items: flex-end;
+            gap: 1rem;
+
+            img {
+                width: 11rem;
+            }
+            p {
+                color: var(--primary);
+                font-weight: bold;
+                font-size: var(--text-3xl);
+                line-height: 2.6rem;
+            }
         }
-        p {
-            color: var(--primary);
-            font-weight: bold;
-            font-size: var(--text-3xl);
-            line-height: 2.6rem;
+        .btn {
+            width: 100%;
         }
-    }
-    .btn {
-        width: 100%;
     }
 }
 
