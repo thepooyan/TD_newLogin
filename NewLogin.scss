@@ -70,41 +70,36 @@
             }
         }
 
-       
-            
-        #login {
-            .tabs {
-                display: flex;
-                justify-content: center;
+        .tabs {
+            display: flex;
+            justify-content: center;
 
-                button {
-                    background: none;
-                    border: 2px solid transparent;
-                    font-size: var(--text-lg);
-                    padding: 1rem;
-                    border-radius: var(--radius);
-                    flex-basis: 50%;
+            button {
+                background: none;
+                border: 2px solid transparent;
+                font-size: var(--text-lg);
+                padding: 1rem;
+                border-radius: var(--radius);
+                flex-basis: 50%;
 
-                    &.active {
-                        font-weight: bold;
-                        border-bottom-color: var(--primary);
+                &.active {
+                    font-weight: bold;
+                    border-bottom-color: var(--primary);
 
-                    }
                 }
             }
         }
 
-        #signup {
-            .grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-            .title {
-                h3 {
-                    font-weight: bold;
-                    font-size: var(--text-2xl);
-                }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .title {
+            h3 {
+                font-weight: bold;
+                font-size: var(--text-2xl);
             }
         }
 
