@@ -380,8 +380,8 @@
           </div>
 
           <div class="animationRail">
-            <form id="login-otp" class="section active" data-group="login-inner">
-              <input class="input" placeholder="شماره موبایل"/>
+            <form id="login-otp" class="section active" data-group="login-inner" data-submitTo="/LoginByCode">
+              <input class="input" placeholder="شماره موبایل" name="Phone"/>
               <button class="btn">
                 دریافت  کد
               </button>
@@ -470,6 +470,6 @@
 
 
   <link href="./style.scss" rel="stylesheet"/>
-  <script src="js.ts" defer></script>
+  <script src="js.ts" defer type="module"></script>
 </body>
 </html>
