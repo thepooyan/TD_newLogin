@@ -46,7 +46,25 @@
 
         .section {
             width: 100%;
+            
             &#login {
+                .tabs {
+                    display: flex;
+                    justify-content: center;
+                    button {
+                        background: none;
+                        border: 1px solid transparent;
+                        font-size: var(--text-lg);
+                        padding: 1rem;
+                        border-radius: var(--radius);
+
+                        &.active {
+                            font-weight: bold;
+                            border-bottom-color: var(--primary);
+
+                        }
+                    }
+                }
             }
         }
 
