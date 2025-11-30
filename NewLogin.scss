@@ -47,30 +47,31 @@
         .section {
             width: 100%;
             display: none;
+            flex-direction: column;
+            gap: 2rem;
 
             &.active {
-                display: block;
+                display: flex;
             }
+        }
             
-            &#login {
-                .tabs {
-                    display: flex;
-                    justify-content: center;
-                    margin-bottom: 3rem;
+        #login {
+            .tabs {
+                display: flex;
+                justify-content: center;
 
-                    button {
-                        background: none;
-                        border: 2px solid transparent;
-                        font-size: var(--text-lg);
-                        padding: 1rem;
-                        border-radius: var(--radius);
-                        flex-basis: 50%;
+                button {
+                    background: none;
+                    border: 2px solid transparent;
+                    font-size: var(--text-lg);
+                    padding: 1rem;
+                    border-radius: var(--radius);
+                    flex-basis: 50%;
 
-                        &.active {
-                            font-weight: bold;
-                            border-bottom-color: var(--primary);
+                    &.active {
+                        font-weight: bold;
+                        border-bottom-color: var(--primary);
 
-                        }
                     }
                 }
             }
