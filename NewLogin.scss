@@ -111,3 +111,11 @@
 .text-center {
     text-align: center;
 }
+
+.flex {
+    display: flex;
+
+    &.between {
+        justify-content: space-between;
+    }
+}
