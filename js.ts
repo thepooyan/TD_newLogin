@@ -15,10 +15,13 @@ const newLogin = $("#newLogin")
     }
     const setFormLoading = (form, value: boolean) => {
         const btn = $(form).find("button")
-        if (value)
+        if (value) {
             btn.addClass("loading")
-        else
+            btn.attr("disabled", "")
+        } else {
             btn.removeClass("loading")
+            btn.removeAttr("disabled")
+        }
     }
 
     $('[data-target]').on("click", (e) => {
