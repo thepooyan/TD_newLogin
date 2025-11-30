@@ -1,4 +1,4 @@
 const newLogin = $("#newLogin")
 if (newLogin) {
-    console.log(newLogin)
+    const contentWindow = newLogin.find("#mainContent")
 }
