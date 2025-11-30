@@ -2,14 +2,15 @@ const newLogin = $("#newLogin")
 if (newLogin) {
 
     $('[data-target]').on("click", (e) => {
+        const el = $(e.currentTarget)
         // activate self
-        $('[data-target]').removeClass("active")
-        $(e.currentTarget).addClass("active")
-        //activate target
-        const target = $(e.currentTarget).attr("data-target") || "";
-        const group = $(target).attr("data-group") || "";
-        console.log(group)
+        const group = el.attr("data-group")
         $(`[data-group="${group}"]`).removeClass("active");
+        el.addClass("active")
+        //activate target
+        const target = el.attr("data-target") || "";
+        const targetGroup = $(target).attr("data-group") || "";
+        $(`[data-group="${targetGroup}"]`).removeClass("active");
         $(target).addClass("active");
     })
 }
