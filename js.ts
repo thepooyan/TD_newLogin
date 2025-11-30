@@ -1,5 +1,12 @@
 const newLogin = $("#newLogin")
-if (newLogin) {
+// if (newLogin) {
+
+    const activateSection = (sectionId: string) => {
+        const target = $(sectionId)
+        const targetGroup = target.attr("data-group") || "";
+        $(`[data-group="${targetGroup}"]`).removeClass("active");
+        target.addClass("active");
+    }
 
     $('[data-target]').on("click", (e) => {
         const el = $(e.currentTarget)
@@ -9,8 +16,6 @@ if (newLogin) {
         el.addClass("active")
         //activate target
         const target = el.attr("data-target") || "";
-        const targetGroup = $(target).attr("data-group") || "";
-        $(`[data-group="${targetGroup}"]`).removeClass("active");
-        $(target).addClass("active");
+        activateSection(target)
     })
-}
+// }
