@@ -26,7 +26,7 @@ const newLogin = $("#newLogin")
     const validationRules: Record<string, {func: (val: string)=> boolean, msg: string} | undefined> = {
         req: {
             func: (val:string) => val.length > 0,
-            msg: "لطفا خالی نگذارید"
+            msg: "لطفا فیلد را خالی نگذارید"
         },
         mobile: {
             func: (val: string) => /^\d{11}$/.test(val),
@@ -40,6 +40,7 @@ const newLogin = $("#newLogin")
         return null
     }
     const showError = (msg: string, $input) => {
+        $input.addClass("hasError")
         if (!$input.next().hasClass("validation-error")) {
             return $("<span><span/>").addClass("validation-error").text(msg).insertAfter($input)
         }
@@ -57,12 +58,15 @@ const newLogin = $("#newLogin")
         activateSection(target)
     })
 
-    $("#login-otp").on("submit", async e => {
+    const optForm = $("#login-otp")
+    optForm.on("submit", async e => {
         e.preventDefault()
-        setFormLoading(e.currentTarget, true)
         const data = formToJSON(e.target as HTMLFormElement)
         const url = e.target.dataset.submitto;
+        let errors = optForm.find("input.hasError")
+        if (errors.length !== 0) return
         if (!url) return
+        setFormLoading(e.currentTarget, true)
 
         let res = await axios.post(url, data).catch(() => {
             alert("error")
@@ -90,6 +94,7 @@ const newLogin = $("#newLogin")
                 }
             }
             if (noErrors && ele.next().hasClass("validation-error")) {
+                ele.removeClass("hasError")
                 ele.next().text("")
             }
         })
