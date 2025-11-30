@@ -38,6 +38,7 @@ const newLogin = $("#newLogin")
 
     $("#login-otp").on("submit", async e => {
         e.preventDefault()
+        return
         const data = formToJSON(e.target as HTMLFormElement)
         const url = e.target.dataset.submitto;
         if (!url) return
@@ -49,4 +50,6 @@ const newLogin = $("#newLogin")
         if (!res) return
         alert("success")
     })
+
+    $(".btn").on("click", function() { $(this).toggleClass("loading") })
 // }

@@ -127,6 +127,30 @@
     color: var(--primary-foreground);
     padding: 0.8rem 0;
     border-radius: var(--radius);
+
+    &.loading {
+        opacity: .8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+
+        &::after {
+            content: "";
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid var(--background);
+            border-bottom-color: var(--primary);
+            display: inline-block;
+            animation: spin 1s infinite;
+            border-radius: 100%;
+
+            @keyframes spin {
+                0% {transform: rotate(0deg);}
+                100% {transform: rotate(360deg);}
+            }
+        }
+    }
 }
 
 .link {
