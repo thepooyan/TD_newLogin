@@ -77,6 +77,20 @@
             }
         }
 
+        #signup {
+            .grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .title {
+                h3 {
+                    font-weight: bold;
+                    font-size: var(--text-2xl);
+                }
+            }
+        }
+
         .btn, .input {
             width: 100%;
         }
