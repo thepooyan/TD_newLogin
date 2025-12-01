@@ -22,25 +22,35 @@ const newLogin = $("#newLogin")
             btn.removeAttr("disabled")
         }
     }
-    const startTimer = ($otp) => {
-        const timer = $($otp).find("#timer")
+    const otp = $("#otp")
+    const resend = otp.find("#resend")
+    const timer = otp.find("#timer")
+
+    resend.on("click", () => {
+        resend.removeClass("active")
+        timer.addClass("active")
+        startTimer()
+    })
+
+    const startTimer = () => {
         const span = timer.find("span")
         let seconds = 5;
+        span.text(seconds)
         const timerInterval = setInterval(() => {
-            span.text(seconds-1)
             seconds--
+            span.text(seconds)
             if (seconds === 0) {
                 clearInterval(timerInterval)
-                $("#resend").addClass("active")
+                resend.addClass("active")
                 timer.removeClass("active")
             }
         }, 1000);
     }
+    
     const activateOtpSection = () => {
-        const otp = $("#otp")
         otp.one("transitionend", () => {
             otp.find("input").eq(0).trigger("focus")
-            startTimer(otp)
+            startTimer()
         })
         activateSection(otp)
     }
