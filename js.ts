@@ -3,11 +3,10 @@ import axios from "axios"
 const newLogin = $("#newLogin")
 // if (newLogin) {
 
-    const activateSection = (sectionId: string) => {
-        const target = $(sectionId)
-        const targetGroup = target.attr("data-group") || "";
+    const activateSection = ($section) => {
+        const targetGroup = $section.attr("data-group") || "";
         $(`[data-group="${targetGroup}"]`).removeClass("active");
-        target.addClass("active");
+        $section.addClass("active");
     }
     function formToJSON(form: HTMLFormElement) {
         const data = new FormData(form)
@@ -23,6 +22,26 @@ const newLogin = $("#newLogin")
             btn.removeAttr("disabled")
         }
     }
+    const startTimer = ($otp) => {
+        const timer = $($otp).find(".timer")
+        let seconds = 5;
+        const timerInterval = setInterval(() => {
+            timer.text(seconds)
+            seconds--
+            if (seconds === 0) {
+                clearInterval(timerInterval)
+                $("#resend").addClass("active")
+            }
+        }, 1000);
+    }
+    const activateOtpSection = () => {
+        const otp = $("#otp")
+        otp.one("transitionend", () => {
+            otp.find("input").eq(0).trigger("focus")
+            startTimer(otp)
+        })
+        activateSection(otp)
+    }
 
     $('[data-target]').on("click", (e) => {
         const el = $(e.currentTarget)
@@ -32,7 +51,7 @@ const newLogin = $("#newLogin")
         el.addClass("active")
         //activate target
         const target = el.attr("data-target") || "";
-        activateSection(target)
+        activateSection($(target))
     })
 
     // validation
@@ -154,7 +173,6 @@ const newLogin = $("#newLogin")
 
     $("#login-otp").on("submit", async function(e) {
         e.preventDefault()
-        activateSection("#otp")
-        
+        activateOtpSection()
     })
 // }

@@ -9,7 +9,7 @@
     --radius: 8px;
     --border: #42A2E1;
     --shadow: 0px 0px 8px 0px #2086C873;
-    --input: #FAFAFA;
+    --input: #FFFFFF;
     --input-foreground: #9E9E9E;
     --destructive: oklch(0.6149 0.252305 29.2339);
     --shadow-destructive: 0px 0px 8px 0px oklch(0.6149 0.252305 29.2339 / .45);
@@ -187,10 +187,14 @@
     background: var(--input);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
     padding: 0.6rem 1rem;
     height: max-content;
+    opacity: .8;
 
+    &:focus {
+        opacity: 1;
+        box-shadow: var(--shadow);
+    }
     &::placeholder {
         color: var(--input-foreground);
     }
@@ -240,4 +244,14 @@
 
 [data-target] {
     user-select: none;
+}
+
+#resend {
+    display: none;
+    align-items: center;
+    gap: .3rem;
+
+    &.active {
+        display: flex;
+    }
 }
