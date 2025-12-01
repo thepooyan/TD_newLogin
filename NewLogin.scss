@@ -11,7 +11,8 @@
     --shadow: 0px 0px 8px 0px #2086C873;
     --input: #FAFAFA;
     --input-foreground: #9E9E9E;
-    --destructive: #F80000;
+    --destructive: oklch(0.6149 0.252305 29.2339);
+    --shadow-destructive: 0px 0px 8px 0px oklch(0.6149 0.252305 29.2339 / .45);
 }
 
 #newLogin {
@@ -181,6 +182,10 @@
 
     &::placeholder {
         color: var(--input-foreground);
+    }
+    &.hasError {
+        border-color: var(--destructive);
+        box-shadow: var(--shadow-destructive);
     }
 }
 
