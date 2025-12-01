@@ -487,14 +487,20 @@
             <input class="input"/>
           </div>
           <div class="text-center">
-            <span class="timer">60</span> ثانیه تا دریافت مجدد کد
-            <span id="resend" class="link">
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.75 7.25C13.75 11.15 10.8965 13.75 7.3761 13.75C4.5148 13.75 2.206 12.2322 1.4 9.85M0.75 7.25C0.75 3.35 3.6035 0.75 7.12455 0.75C9.9852 0.75 12.2927 2.26775 13.1 4.65" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M4 10.5008L1.4 9.85078L0.75 12.4508M10.5 4.00078L13.1 4.65078L13.75 2.05078" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              ارسال مجدد 
-            </span>
+            <div id="timer" class="hiddenByDefault active">
+              <span>60</span> ثانیه تا دریافت مجدد کد
+            </div>
+            <div id="resend" class="hiddenByDefault">
+              دریافت نکردید؟
+
+              <span class="font-bold flex-center cursor-pointer">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.75 7.25C13.75 11.15 10.8965 13.75 7.3761 13.75C4.5148 13.75 2.206 12.2322 1.4 9.85M0.75 7.25C0.75 3.35 3.6035 0.75 7.12455 0.75C9.9852 0.75 12.2927 2.26775 13.1 4.65" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4 10.5008L1.4 9.85078L0.75 12.4508M10.5 4.00078L13.1 4.65078L13.75 2.05078" stroke="#363636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                ارسال مجدد 
+              </span>
+            </div>
           </div>
           <button class="btn">
             ورود

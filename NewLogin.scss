@@ -246,12 +246,16 @@
     user-select: none;
 }
 
-#resend {
-    display: none;
-    align-items: center;
-    gap: .3rem;
-
-    &.active {
-        display: flex;
+.hiddenByDefault {
+    &:not(.active) {
+        display: none !important;
     }
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

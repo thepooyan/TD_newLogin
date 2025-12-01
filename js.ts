@@ -23,14 +23,16 @@ const newLogin = $("#newLogin")
         }
     }
     const startTimer = ($otp) => {
-        const timer = $($otp).find(".timer")
+        const timer = $($otp).find("#timer")
+        const span = timer.find("span")
         let seconds = 5;
         const timerInterval = setInterval(() => {
-            timer.text(seconds)
+            span.text(seconds-1)
             seconds--
             if (seconds === 0) {
                 clearInterval(timerInterval)
                 $("#resend").addClass("active")
+                timer.removeClass("active")
             }
         }, 1000);
     }
