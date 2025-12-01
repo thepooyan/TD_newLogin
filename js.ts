@@ -34,7 +34,7 @@ const newLogin = $("#newLogin")
 
     const startTimer = () => {
         const span = timer.find("span")
-        let seconds = 5;
+        let seconds = 60;
         span.text(seconds)
         const timerInterval = setInterval(() => {
             seconds--
