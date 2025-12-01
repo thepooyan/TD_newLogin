@@ -113,7 +113,7 @@ const newLogin = $("#newLogin")
     }
 
     // submit handlers
-    $("#login-otp, #signup, #login-pass").on("submit", async function(e) {
+    $("  #signup, #login-pass").on("submit", async function(e) {
         e.preventDefault()
         const el = $(e.target)
         const data = formToJSON(e.target as HTMLFormElement)
@@ -131,5 +131,9 @@ const newLogin = $("#newLogin")
         alert("success")
     })
 
-
+    $("#login-otp").on("submit", async function(e) {
+        e.preventDefault()
+        activateSection("#otp")
+        
+    })
 // }

@@ -190,6 +190,18 @@
     }
 }
 
+.otpInput {
+    display: grid;
+    grid-template-columns: repeat(5, 3rem);
+    justify-content: center;
+    gap: 1rem;
+
+    .input {
+        text-align: center;
+        font-size: var(--text-lg);
+    }
+}
+
 .text-center {
     text-align: center;
 }
