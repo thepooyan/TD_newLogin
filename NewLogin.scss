@@ -199,6 +199,13 @@
 .validation-error {
     color: var(--destructive);
     font-size: var(--text-sm);
+    max-height: 0;
+    overflow: hidden;
+    transition: .2s all;
+
+    &.show {
+        max-height: 5rem;
+    }
 }
 
 [data-target] {

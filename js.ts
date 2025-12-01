@@ -53,17 +53,24 @@ const newLogin = $("#newLogin")
         return null
     }
     const showError = (msg: string, $input) => {
-        $input.addClass("hasError")
-        if (!$input.next().hasClass("validation-error")) {
-            return $("<span><span/>").addClass("validation-error").text(msg).insertAfter($input)
+        if ($input.next().hasClass("validation-error")) {
+            $input.addClass("hasError")
+            $input.next().text(msg).addClass("show")
         }
-        $input.next().text(msg)
+    }
+    const clearError = ($input) => {
+        if ($input.next().hasClass("validation-error")) {
+            $input.removeClass("hasError")
+            $input.next().removeClass("show")
+        }
     }
     $("[data-val]").each((_, el) => {
         const ele = $(el)
         const validationItems = ele.attr("data-val")?.split(",") || []
 
         if (!validationItems.length) return
+
+        $("<span><span/>").addClass("validation-error").insertAfter(ele)
 
         ele.on("input", (e) => {
             let noErrors = true;
@@ -75,9 +82,8 @@ const newLogin = $("#newLogin")
                     break
                 }
             }
-            if (noErrors && ele.next().hasClass("validation-error")) {
-                ele.removeClass("hasError")
-                ele.next().text("")
+            if (noErrors) {
+                clearError(ele)
             }
         })
     })
