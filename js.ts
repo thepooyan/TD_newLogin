@@ -93,7 +93,6 @@ const newLogin = $("#newLogin")
             }
         })
     })
-
     const validateForm = ($form) => {
         let noErrors = true
         $form.find("[data-val]").each((_, el) => {
@@ -112,6 +111,28 @@ const newLogin = $("#newLogin")
         return noErrors
     }
 
+    //otp input
+    const inputs = $(".otpInput").find("input");
+    inputs.each((idx, el) => {
+        $(el).on("input", () => {
+            const maybeNext = inputs[idx+1];
+            if (maybeNext) maybeNext.focus()
+                else 
+            $(el).closest("form").trigger("submit")
+        })
+        $(el).on("focus", el => {
+            $(el.target).val("")
+        })
+        $(el).on("keydown", e => {
+            if (e.key === "Backspace") {
+                const maybePrev = inputs[idx - 1]
+                if (maybePrev) {
+                    maybePrev.focus()
+                    $(el).val("")
+                }
+            }
+        })
+    })
     // submit handlers
     $("  #signup, #login-pass").on("submit", async function(e) {
         e.preventDefault()
