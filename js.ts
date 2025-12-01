@@ -90,12 +90,12 @@ const newLogin = $("#newLogin")
     })
 
     // submit handlers
-    const optForm = $("#login-otp")
-    optForm.on("submit", async e => {
+    $("form[data-submitto]").on("submit", async function(e) {
         e.preventDefault()
+        const el = $(e.target)
         const data = formToJSON(e.target as HTMLFormElement)
         const url = e.target.dataset.submitto;
-        let errors = optForm.find("input.hasError")
+        let errors = el.find("input.hasError")
         if (errors.length !== 0) return
         if (!url) return
         setFormLoading(e.currentTarget, true)
