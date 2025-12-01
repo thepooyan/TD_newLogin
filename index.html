@@ -424,12 +424,24 @@
           </div>
 
           <div class="grid">
-            <input class="input" placeholder="نام"/>
-            <input class="input" placeholder="نام خانوادگی"/>
-            <input class="input" placeholder="شماره تلفن"/>
-            <input class="input" placeholder="شماره تلفن معرف"/>
-            <input class="input" placeholder="رمز عبور"/>
-            <input class="input" placeholder="تکرار رمز عبور"/>
+            <div>
+              <input class="input" placeholder="نام" data-val="req"/>
+            </div>
+            <div>
+              <input class="input" placeholder="نام خانوادگی" data-val="req"/>
+            </div>
+            <div>
+              <input class="input" placeholder="شماره تلفن" data-val="req,mobile"/>
+            </div>
+            <div>
+              <input class="input" placeholder="شماره تلفن معرف (اختیاری)"/>
+            </div>
+            <div>
+              <input class="input" placeholder="رمز عبور" data-val="req" id="password"/>
+            </div>
+            <div>
+              <input class="input" placeholder="تکرار رمز عبور" data-val="req"/>
+            </div>
           </div>
 
           <label>

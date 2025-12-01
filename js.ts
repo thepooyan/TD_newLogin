@@ -71,7 +71,6 @@ const newLogin = $("#newLogin")
         if (!validationItems.length) return
 
         $("<span><span/>").addClass("validation-error").insertAfter(ele)
-        $(el).addClass("hasError")
 
         ele.on("input", (e) => {
             let noErrors = true;
