@@ -44,6 +44,10 @@ const newLogin = $("#newLogin")
         mobile: {
             func: (val: string) => /^\d{11}$/.test(val),
             msg: "شماره موبایل صحیح نمیباشد"
+        },
+        pass: {
+            func: (val: string) => $("#password").val() === val,
+            msg: "تکرار رمز عبور اشتباه میباشد"
         }
     }
     const validate = (input:string, rule:string) => {
