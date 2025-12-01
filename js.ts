@@ -74,7 +74,9 @@ const newLogin = $("#newLogin")
 
         if (!validationItems.length) return
 
-        $("<span><span/>").addClass("validation-error").insertAfter(ele)
+        $(ele)
+            .wrap('<div></div>')
+            .after($('<span></span>').addClass('validation-error'))
 
         ele.on("input", (e) => {
             let noErrors = true;
@@ -92,14 +94,32 @@ const newLogin = $("#newLogin")
         })
     })
 
+    const validateForm = ($form) => {
+        let noErrors = true
+        $form.find("[data-val]").each((_, el) => {
+            const ele = $(el)
+            const validationItems = ele.attr("data-val")?.split(",") || []
+            if (!validationItems.length) return
+            for (const vi of validationItems) {
+                const error = validate(ele.val() as string, vi)
+                if (error) {
+                    showError(error, ele)
+                    noErrors = false
+                    break
+                }
+            }
+        })
+        return noErrors
+    }
+
     // submit handlers
-    $("form[data-submitto]").on("submit", async function(e) {
+    $("#login-otp").on("submit", async function(e) {
         e.preventDefault()
         const el = $(e.target)
         const data = formToJSON(e.target as HTMLFormElement)
         const url = e.target.dataset.submitto;
-        let errors = el.find("input.hasError")
-        if (errors.length !== 0) return
+        const ok = validateForm(el)
+        if (!ok) return
         if (!url) return
         setFormLoading(e.currentTarget, true)
 
