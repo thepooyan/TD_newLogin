@@ -202,6 +202,7 @@
     max-height: 0;
     overflow: hidden;
     transition: .2s all;
+    display: block;
 
     &.show {
         max-height: 5rem;
