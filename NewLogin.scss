@@ -174,11 +174,14 @@
 
 .input {
     background: var(--input);
-    color: var(--input-foreground);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     padding: 0.6rem 1rem;
+
+    &::placeholder {
+        color: var(--input-foreground);
+    }
 }
 
 .text-center {
