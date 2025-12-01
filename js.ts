@@ -113,14 +113,13 @@ const newLogin = $("#newLogin")
     }
 
     // submit handlers
-    $("#login-otp").on("submit", async function(e) {
+    $("#login-otp, #signup, #login-pass").on("submit", async function(e) {
         e.preventDefault()
         const el = $(e.target)
         const data = formToJSON(e.target as HTMLFormElement)
         const url = e.target.dataset.submitto;
         const ok = validateForm(el)
-        if (!ok) return
-        if (!url) return
+        if (!ok || !url) return
         setFormLoading(e.currentTarget, true)
 
         let res = await axios.post(url, data).catch(() => {
