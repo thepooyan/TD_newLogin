@@ -23,6 +23,19 @@ const newLogin = $("#newLogin")
             btn.removeAttr("disabled")
         }
     }
+
+    $('[data-target]').on("click", (e) => {
+        const el = $(e.currentTarget)
+        // activate self
+        const group = el.attr("data-group")
+        $(`[data-group="${group}"]`).removeClass("active");
+        el.addClass("active")
+        //activate target
+        const target = el.attr("data-target") || "";
+        activateSection(target)
+    })
+
+    // validation
     const validationRules: Record<string, {func: (val: string)=> boolean, msg: string} | undefined> = {
         req: {
             func: (val:string) => val.length > 0,
@@ -46,37 +59,6 @@ const newLogin = $("#newLogin")
         }
         $input.next().text(msg)
     }
-
-    $('[data-target]').on("click", (e) => {
-        const el = $(e.currentTarget)
-        // activate self
-        const group = el.attr("data-group")
-        $(`[data-group="${group}"]`).removeClass("active");
-        el.addClass("active")
-        //activate target
-        const target = el.attr("data-target") || "";
-        activateSection(target)
-    })
-
-    const optForm = $("#login-otp")
-    optForm.on("submit", async e => {
-        e.preventDefault()
-        const data = formToJSON(e.target as HTMLFormElement)
-        const url = e.target.dataset.submitto;
-        let errors = optForm.find("input.hasError")
-        if (errors.length !== 0) return
-        if (!url) return
-        setFormLoading(e.currentTarget, true)
-
-        let res = await axios.post(url, data).catch(() => {
-            alert("error")
-            return null
-        })
-        setFormLoading(e.currentTarget, false)
-        if (!res) return
-        alert("success")
-    })
-
     $("[data-val]").each((_, el) => {
         const ele = $(el)
         const validationItems = ele.attr("data-val")?.split(",") || []
@@ -99,5 +81,26 @@ const newLogin = $("#newLogin")
             }
         })
     })
+
+    // submit handlers
+    const optForm = $("#login-otp")
+    optForm.on("submit", async e => {
+        e.preventDefault()
+        const data = formToJSON(e.target as HTMLFormElement)
+        const url = e.target.dataset.submitto;
+        let errors = optForm.find("input.hasError")
+        if (errors.length !== 0) return
+        if (!url) return
+        setFormLoading(e.currentTarget, true)
+
+        let res = await axios.post(url, data).catch(() => {
+            alert("error")
+            return null
+        })
+        setFormLoading(e.currentTarget, false)
+        if (!res) return
+        alert("success")
+    })
+
 
 // }
