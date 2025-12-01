@@ -99,9 +99,19 @@
         }
 
         .title {
+            position: relative;
+            margin-block: 1rem;
             h3 {
                 font-weight: bold;
                 font-size: var(--text-2xl);
+            }
+            aside {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                position: absolute;
+                left: 0;
+                top: 0;
             }
         }
 
