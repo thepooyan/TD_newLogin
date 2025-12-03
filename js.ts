@@ -23,6 +23,8 @@ const newLogin = $("#newLogin")
     const otpForm = $("#otp")
     const resend = otpForm.find("#resend")
     const timer = otpForm.find("#timer")
+    const forgotForm = $("#forgetPassword")
+    const loginByCodeForm = $("#login-otp")
 
     resend.on("click", () => {
         resend.removeClass("active")
@@ -222,7 +224,6 @@ const newLogin = $("#newLogin")
         })
     })
 
-    const loginByCodeForm = $("#login-otp")
     loginByCodeForm.on("submit", async function(e) {
         e.preventDefault()
         clearGeneralError(loginByCodeForm)
@@ -242,7 +243,6 @@ const newLogin = $("#newLogin")
         })
     })
 
-    const forgotForm = $("#forgetPassword")
     forgotForm.on("submit", async function(e) {
         e.preventDefault()
         clearGeneralError(forgotForm)
