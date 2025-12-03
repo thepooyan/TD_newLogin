@@ -157,22 +157,23 @@ const newLogin = $("#newLogin")
         })
         return noErrors
     }
+    let fetchFlip = false;
     const dummyFetch = async (url: string, data: any, params?: any) => {
-        const rand = Math.random()
         console.log(`Request: ${url} data: ${JSON.stringify(data)} params: ${JSON.stringify(params)}`)
         return await new Promise((res, rej) => {
             setTimeout(() => {
-                if (rand > .5) res("")
+                fetchFlip = !fetchFlip
+                if (fetchFlip) res("")
                     else rej("خطا در برقراری ارتباط با شبکه. لطفا مجددا تلاش کنید.")
             }, 1000);
         })
     }
+    dummyFetch.post = dummyFetch
     const getOtpValue = () => {
         let val = ""
         otpForm.find("input").each((_,e) => {val += e.value} )
         return val
     }
-    dummyFetch.post = dummyFetch
 
     //otp input
     const inputs = $(".otpInput").find("input");
