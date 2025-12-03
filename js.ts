@@ -49,8 +49,9 @@ const newLogin = $("#newLogin")
         }, 1000);
     }
     
-    const activateOtpSection = (number: string) => {
+    const activateOtpSection = (number: string, back: string, hasResend: boolean) => {
         otp.find("#numberPlaceholder").text(number)
+        otp.find("#backBtn").attr("data-target", back)
         otp.one("transitionend", () => {
             otp.find("input").eq(0).trigger("focus")
             startTimer()
@@ -58,15 +59,12 @@ const newLogin = $("#newLogin")
         activateSection(otp)
     }
 
-    $('[data-target]').on("click", (e) => {
+    $(document).on("click", "[data-target]", e => {
         const el = $(e.currentTarget)
         // activate self
-        const group = el.attr("data-group")
-        $(`[data-group="${group}"]`).removeClass("active");
-        el.addClass("active")
+        activateSection(el)
         //activate target
-        const target = el.attr("data-target") || "";
-        activateSection($(target))
+        activateSection($(el.attr("data-target") || ""))
     })
 
     // validation
@@ -152,6 +150,7 @@ const newLogin = $("#newLogin")
     }
     const dummyFetch = async (url: string, data: any) => {
         const rand = Math.random()
+        console.log(`Request: ${url} data: ${JSON.stringify(data)}`)
         return await new Promise((res, rej) => {
             setTimeout(() => {
                 if (rand > .5) res("")
@@ -214,15 +213,35 @@ const newLogin = $("#newLogin")
         setFormLoading(otpForm, true)
         const data = formToJSON(otpForm[0])
 
-        dummyFetch()
+        dummyFetch.post("/LoginByCode", data)
         .then(() => {
-            activateOtpSection(data.Phone as string)
+            activateOtpSection(data.Phone as string, "#login", true)
         })
         .catch((err) => {
             showGeneralError(err, otpForm)
         })
         .finally(() => {
             setFormLoading(otpForm, false)
+        })
+    })
+
+    const forgotForm = $("#forgetPassword")
+    forgotForm.on("submit", async function(e) {
+        e.preventDefault()
+        clearGeneralError(forgotForm)
+        if (!validateForm(forgotForm)) return
+        setFormLoading(forgotForm, true)
+        const data = formToJSON(forgotForm[0])
+
+        dummyFetch.post("/ForgotPassword", data)
+        .then(() => {
+            activateOtpSection(data.Mobile as string, "#forgetPassword", false)
+        })
+        .catch((err) => {
+            showGeneralError(err, forgotForm)
+        })
+        .finally(() => {
+            setFormLoading(forgotForm, false)
         })
     })
 // }
