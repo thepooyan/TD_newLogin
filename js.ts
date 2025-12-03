@@ -25,6 +25,8 @@ const newLogin = $("#newLogin")
     const timer = otpForm.find("#timer")
     const forgotForm = $("#forgetPassword")
     const loginByCodeForm = $("#login-otp")
+    const newPasswordForm = $("#newPassword")
+    activateSection(newPasswordForm)
 
     resend.on("click", () => {
         resend.removeClass("active")
@@ -91,7 +93,11 @@ const newLogin = $("#newLogin")
         pass: {
             func: (val: string) => $("#password").val() === val,
             msg: "تکرار رمز عبور اشتباه میباشد"
-        }
+        },
+        pass2: {
+            func: (val: string) => $("#password2").val() === val,
+            msg: "تکرار رمز عبور اشتباه میباشد"
+        },
     }
     const validate = (input:string, rule:string) => {
         const validator = validationRules[rule]
@@ -204,7 +210,7 @@ const newLogin = $("#newLogin")
     })
 
     // submit handlers
-    $("#signup, #login-pass").on("submit", async function(e) {
+    $("#signup, #login-pass, #newPassword").on("submit", async function(e) {
         e.preventDefault()
         const el = $(e.target)
         const data = formToJSON(e.target as HTMLFormElement)
@@ -302,7 +308,7 @@ const newLogin = $("#newLogin")
         setFormLoading(otpForm, true)
         dummyFetch.post("/ConfirmVerify", null, params)
         .then(() => {
-            alert("next section")
+            activateSection("newPassword")
         })
         .catch(err => {
             showGeneralError(err, otpForm)
