@@ -260,21 +260,29 @@ const newLogin = $("#newLogin")
     })
 
     const otpForm = $("#otp")
-    $(document).on("submit", otpForm, function(e) {
+    $(document).on("submit", "#otp", function(e) {
         e.preventDefault()
+        clearGeneralError(otpForm)
         const val = getOtpValue()
         const mobile = otpForm.attr("data-number")
         if (val.length < 5) {
-            return showGeneralError("کد وارد شده اشتباه است", otpForm)
+            return showGeneralError("لطفا کد را کامل وارد کنید", otpForm)
         }
         const params = {
             Mobile: mobile,
             VerifyCode: val,
         }
+        setFormLoading(otpForm, true)
         dummyFetch.post("/ConfirmVerify", null, params)
-        .then(() => {})
-        .catch(() => {})
-        .finally(() => {})
+        .then(() => {
+            alert("welcome!")
+        })
+        .catch(err => {
+            showGeneralError(err, otpForm)
+        })
+        .finally(() => {
+            setFormLoading(otpForm, false)
+        })
     })
     
     
