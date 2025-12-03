@@ -87,11 +87,17 @@ const newLogin = $("#newLogin")
         if (!validator.func(input)) return validator.msg
         return null
     }
-    const showError = (msg: string, $input) => {
+    const showInputError = (msg: string, $input) => {
         if ($input.next().hasClass("validation-error")) {
             $input.addClass("hasError")
             $input.next().text(msg).addClass("show")
         }
+    }
+    const showGeneralError = (msg: string, $form) => {
+        $form.find(".validation-error.general").text(msg).addClass("show")
+    }
+    const clearGeneralError = ($form) => {
+        $form.find(".validation-error.general").removeClass("show")
     }
     const clearError = ($input) => {
         if ($input.next().hasClass("validation-error")) {
@@ -114,7 +120,7 @@ const newLogin = $("#newLogin")
             for (const vi of validationItems) {
                 const error = validate(ele.val() as string, vi)
                 if (error) {
-                    showError(error, ele)
+                    showInputError(error, ele)
                     noErrors = false;
                     break
                 }
@@ -133,7 +139,7 @@ const newLogin = $("#newLogin")
             for (const vi of validationItems) {
                 const error = validate(ele.val() as string, vi)
                 if (error) {
-                    showError(error, ele)
+                    showInputError(error, ele)
                     noErrors = false
                     break
                 }
@@ -183,8 +189,14 @@ const newLogin = $("#newLogin")
         alert("success")
     })
 
-    $("#login-otp").on("submit", async function(e) {
+    const otpForm = $("#login-otp")
+    otpForm.on("submit", async function(e) {
         e.preventDefault()
-        activateOtpSection()
+        clearGeneralError(otpForm)
+        //success
+        // activateOtpSection()
+
+        //fail
+        showGeneralError("api error", otpForm)
     })
 // }
