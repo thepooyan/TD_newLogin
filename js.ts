@@ -150,7 +150,7 @@ const newLogin = $("#newLogin")
         })
         return noErrors
     }
-    const dummyFetch = async () => {
+    const dummyFetch = async (url: string, data: any) => {
         const rand = Math.random()
         return await new Promise((res, rej) => {
             setTimeout(() => {
@@ -159,6 +159,7 @@ const newLogin = $("#newLogin")
             }, 1000);
         })
     }
+    dummyFetch.post = dummyFetch
 
     //otp input
     const inputs = $(".otpInput").find("input");
@@ -182,8 +183,9 @@ const newLogin = $("#newLogin")
             }
         })
     })
+
     // submit handlers
-    $("  #signup, #login-pass").on("submit", async function(e) {
+    $("#signup, #login-pass").on("submit", async function(e) {
         e.preventDefault()
         const el = $(e.target)
         const data = formToJSON(e.target as HTMLFormElement)
@@ -192,13 +194,16 @@ const newLogin = $("#newLogin")
         if (!ok || !url) return
         setFormLoading(e.currentTarget, true)
 
-        let res = await axios.post(url, data).catch(() => {
-            alert("error")
-            return null
+        dummyFetch.post(url, data)
+        .then(() => {
+            alert("success")
         })
-        setFormLoading(e.currentTarget, false)
-        if (!res) return
-        alert("success")
+        .catch((err) => {
+            showGeneralError(err, el)
+        })
+        .finally(() => {
+            setFormLoading(e.currentTarget, false)
+        })
     })
 
     const otpForm = $("#login-otp")
