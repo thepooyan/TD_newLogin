@@ -32,11 +32,13 @@ const newLogin = $("#newLogin")
         startTimer()
     })
 
+    let timerInterval;
     const startTimer = () => {
         const span = timer.find("span")
         let seconds = 60;
         span.text(seconds)
-        const timerInterval = setInterval(() => {
+        clearInterval(timerInterval)
+        timerInterval = setInterval(() => {
             seconds--
             span.text(seconds)
             if (seconds === 0) {
