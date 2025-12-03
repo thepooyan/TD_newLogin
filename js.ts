@@ -147,6 +147,15 @@ const newLogin = $("#newLogin")
         })
         return noErrors
     }
+    const dummyFetch = async () => {
+        const rand = Math.random()
+        return await new Promise((res, rej) => {
+            setTimeout(() => {
+                if (rand > .5) res("")
+                    else rej("api error")
+            }, 1000);
+        })
+    }
 
     //otp input
     const inputs = $(".otpInput").find("input");
@@ -193,10 +202,19 @@ const newLogin = $("#newLogin")
     otpForm.on("submit", async function(e) {
         e.preventDefault()
         clearGeneralError(otpForm)
-        //success
-        // activateOtpSection()
+        if (!validateForm(otpForm)) return
+        setFormLoading(otpForm, true)
 
-        //fail
-        showGeneralError("api error", otpForm)
+        dummyFetch()
+        .then(() => {
+            activateOtpSection()
+
+        })
+        .catch((err) => {
+            showGeneralError(err, otpForm)
+        })
+        .finally(() => {
+            setFormLoading(otpForm, false)
+        })
     })
 // }
