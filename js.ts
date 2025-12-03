@@ -152,7 +152,7 @@ const newLogin = $("#newLogin")
         return await new Promise((res, rej) => {
             setTimeout(() => {
                 if (rand > .5) res("")
-                    else rej("api error")
+                    else rej("خطا در برقراری ارتباط با شبکه. لطفا مجددا تلاش کنید.")
             }, 1000);
         })
     }
