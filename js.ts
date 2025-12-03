@@ -20,9 +20,9 @@ const newLogin = $("#newLogin")
             btn.removeAttr("disabled")
         }
     }
-    const otp = $("#otp")
-    const resend = otp.find("#resend")
-    const timer = otp.find("#timer")
+    const otpForm = $("#otp")
+    const resend = otpForm.find("#resend")
+    const timer = otpForm.find("#timer")
 
     resend.on("click", () => {
         resend.removeClass("active")
@@ -54,15 +54,17 @@ const newLogin = $("#newLogin")
     }
     
     const activateOtpSection = (number: string, back: string, hasResend: boolean) => {
-        otp.attr("data-number", number)
-        otp.find("#numberPlaceholder").text(number)
-        otp.find("#backBtn").attr("data-target", back)
+        otpForm.attr("data-number", number)
+        otpForm.find("#numberPlaceholder").text(number)
+        otpForm.find("#backBtn").attr("data-target", back)
+        otpForm.find("input").val("")
+        clearGeneralError(otpForm)
         !hasResend && disableTimer()
-        otp.one("transitionend", () => {
-            otp.find("input").eq(0).trigger("focus")
+        otpForm.one("transitionend", () => {
+            otpForm.find("input").eq(0).trigger("focus")
             hasResend && startTimer()
         })
-        activateSection(otp)
+        activateSection(otpForm)
     }
 
     $(document).on("click", "[data-target]", e => {
@@ -167,7 +169,7 @@ const newLogin = $("#newLogin")
     }
     const getOtpValue = () => {
         let val = ""
-        otp.find("input").each((_,e) => {val += e.value} )
+        otpForm.find("input").each((_,e) => {val += e.value} )
         return val
     }
     dummyFetch.post = dummyFetch
@@ -259,7 +261,6 @@ const newLogin = $("#newLogin")
         })
     })
 
-    const otpForm = $("#otp")
     $(document).on("submit", "#otp", function(e) {
         e.preventDefault()
         clearGeneralError(otpForm)
