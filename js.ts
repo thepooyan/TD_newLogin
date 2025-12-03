@@ -1,5 +1,3 @@
-import axios from "axios"
-
 const newLogin = $("#newLogin")
 // if (newLogin) {
 
@@ -56,6 +54,7 @@ const newLogin = $("#newLogin")
     }
     
     const activateOtpSection = (number: string, back: string, hasResend: boolean) => {
+        otp.attr("data-number", number)
         otp.find("#numberPlaceholder").text(number)
         otp.find("#backBtn").attr("data-target", back)
         !hasResend && disableTimer()
@@ -96,8 +95,8 @@ const newLogin = $("#newLogin")
         return null
     }
     const showInputError = (msg: string, $input) => {
+        $input.addClass("hasError")
         if ($input.next().hasClass("validation-error")) {
-            $input.addClass("hasError")
             $input.next().text(msg).addClass("show")
         }
     }
@@ -119,9 +118,10 @@ const newLogin = $("#newLogin")
 
         if (!validationItems.length) return
 
-        $(ele)
-            .wrap('<div></div>')
-            .after($('<span></span>').addClass('validation-error'))
+        if (!$(ele).hasClass("noError"))
+            $(ele)
+                .wrap('<div></div>')
+                .after($('<span></span>').addClass('validation-error'))
 
         ele.on("input", (e) => {
             let noErrors = true;
@@ -155,15 +155,20 @@ const newLogin = $("#newLogin")
         })
         return noErrors
     }
-    const dummyFetch = async (url: string, data: any) => {
+    const dummyFetch = async (url: string, data: any, params?: any) => {
         const rand = Math.random()
-        console.log(`Request: ${url} data: ${JSON.stringify(data)}`)
+        console.log(`Request: ${url} data: ${JSON.stringify(data)} params: ${JSON.stringify(params)}`)
         return await new Promise((res, rej) => {
             setTimeout(() => {
                 if (rand > .5) res("")
                     else rej("خطا در برقراری ارتباط با شبکه. لطفا مجددا تلاش کنید.")
             }, 1000);
         })
+    }
+    const getOtpValue = () => {
+        let val = ""
+        otp.find("input").each((_,e) => {val += e.value} )
+        return val
     }
     dummyFetch.post = dummyFetch
 
@@ -173,8 +178,10 @@ const newLogin = $("#newLogin")
         $(el).on("input", () => {
             const maybeNext = inputs[idx+1];
             if (maybeNext) maybeNext.focus()
-                else 
-            $(el).closest("form").trigger("submit")
+            else {
+                $(el).trigger("blur")
+                $(el).closest("form").trigger("submit")
+            }
         })
         $(el).on("focus", el => {
             $(el.target).val("")
@@ -212,23 +219,23 @@ const newLogin = $("#newLogin")
         })
     })
 
-    const otpForm = $("#login-otp")
-    otpForm.on("submit", async function(e) {
+    const loginByCodeForm = $("#login-otp")
+    loginByCodeForm.on("submit", async function(e) {
         e.preventDefault()
-        clearGeneralError(otpForm)
-        if (!validateForm(otpForm)) return
-        setFormLoading(otpForm, true)
-        const data = formToJSON(otpForm[0])
+        clearGeneralError(loginByCodeForm)
+        if (!validateForm(loginByCodeForm)) return
+        setFormLoading(loginByCodeForm, true)
+        const data = formToJSON(loginByCodeForm[0])
 
         dummyFetch.post("/LoginByCode", data)
         .then(() => {
             activateOtpSection(data.Phone as string, "#login", true)
         })
         .catch((err) => {
-            showGeneralError(err, otpForm)
+            showGeneralError(err, loginByCodeForm)
         })
         .finally(() => {
-            setFormLoading(otpForm, false)
+            setFormLoading(loginByCodeForm, false)
         })
     })
 
@@ -251,4 +258,24 @@ const newLogin = $("#newLogin")
             setFormLoading(forgotForm, false)
         })
     })
+
+    const otpForm = $("#otp")
+    $(document).on("submit", otpForm, function(e) {
+        e.preventDefault()
+        const val = getOtpValue()
+        const mobile = otpForm.attr("data-number")
+        if (val.length < 5) {
+            return showGeneralError("کد وارد شده اشتباه است", otpForm)
+        }
+        const params = {
+            Mobile: mobile,
+            VerifyCode: val,
+        }
+        dummyFetch.post("/ConfirmVerify", null, params)
+        .then(() => {})
+        .catch(() => {})
+        .finally(() => {})
+    })
+    
+    
 // }
