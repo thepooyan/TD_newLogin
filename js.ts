@@ -210,7 +210,7 @@ const newLogin = $("#newLogin")
     })
 
     // submit handlers
-    $("#signup, #login-pass, #newPassword").on("submit", async function(e) {
+    $(document).on("submit", "#signup, #login-pass, #newPassword", async function(e) {
         e.preventDefault()
         const el = $(e.target)
         const data = formToJSON(e.target as HTMLFormElement)
@@ -230,8 +230,7 @@ const newLogin = $("#newLogin")
             setFormLoading(e.currentTarget, false)
         })
     })
-
-    loginByCodeForm.on("submit", async function(e) {
+    $(document).on("submit", "#login-otp", async function(e) {
         e.preventDefault()
         clearGeneralError(loginByCodeForm)
         if (!validateForm(loginByCodeForm)) return
@@ -249,8 +248,7 @@ const newLogin = $("#newLogin")
             setFormLoading(loginByCodeForm, false)
         })
     })
-
-    forgotForm.on("submit", async function(e) {
+    $(document).on("submit", "#forgetPassword", async function(e) {
         e.preventDefault()
         clearGeneralError(forgotForm)
         if (!validateForm(forgotForm)) return
@@ -268,7 +266,6 @@ const newLogin = $("#newLogin")
             setFormLoading(forgotForm, false)
         })
     })
-
     $(document).on("submit", "#otp.loginByCode", function(e) {
         e.preventDefault()
         clearGeneralError(otpForm)
