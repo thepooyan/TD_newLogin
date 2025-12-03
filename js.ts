@@ -34,6 +34,7 @@ const newLogin = $("#newLogin")
 
     let timerInterval;
     const startTimer = () => {
+        timer.addClass("active")
         const span = timer.find("span")
         let seconds = 60;
         span.text(seconds)
@@ -48,13 +49,19 @@ const newLogin = $("#newLogin")
             }
         }, 1000);
     }
+
+    const disableTimer = () => {
+        timer.removeClass("active")
+        resend.removeClass("active")
+    }
     
     const activateOtpSection = (number: string, back: string, hasResend: boolean) => {
         otp.find("#numberPlaceholder").text(number)
         otp.find("#backBtn").attr("data-target", back)
+        !hasResend && disableTimer()
         otp.one("transitionend", () => {
             otp.find("input").eq(0).trigger("focus")
-            startTimer()
+            hasResend && startTimer()
         })
         activateSection(otp)
     }
