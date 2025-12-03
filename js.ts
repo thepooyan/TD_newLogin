@@ -55,7 +55,8 @@ const newLogin = $("#newLogin")
         resend.removeClass("active")
     }
     
-    const activateOtpSection = (number: string, back: string, hasResend: boolean) => {
+    const activateOtpSection = (number: string, back: string, hasResend: boolean, submitHook: string) => {
+        otpForm.addClass(submitHook)
         otpForm.attr("data-number", number)
         otpForm.find("#numberPlaceholder").text(number)
         otpForm.find("#backBtn").attr("data-target", back)
@@ -233,7 +234,7 @@ const newLogin = $("#newLogin")
 
         dummyFetch.post("/LoginByCode", data)
         .then(() => {
-            activateOtpSection(data.Phone as string, "#login", true)
+            activateOtpSection(data.Phone as string, "#login", true, "loginByCode")
         })
         .catch((err) => {
             showGeneralError(err, loginByCodeForm)
@@ -252,7 +253,7 @@ const newLogin = $("#newLogin")
 
         dummyFetch.post("/ForgotPassword", data)
         .then(() => {
-            activateOtpSection(data.Mobile as string, "#forgetPassword", false)
+            activateOtpSection(data.Mobile as string, "#forgetPassword", false, "forgotPassword")
         })
         .catch((err) => {
             showGeneralError(err, forgotForm)
@@ -262,7 +263,7 @@ const newLogin = $("#newLogin")
         })
     })
 
-    $(document).on("submit", "#otp", function(e) {
+    $(document).on("submit", "#otp.loginByCode", function(e) {
         e.preventDefault()
         clearGeneralError(otpForm)
         const val = getOtpValue()
@@ -278,6 +279,30 @@ const newLogin = $("#newLogin")
         dummyFetch.post("/ConfirmVerify", null, params)
         .then(() => {
             alert("welcome!")
+        })
+        .catch(err => {
+            showGeneralError(err, otpForm)
+        })
+        .finally(() => {
+            setFormLoading(otpForm, false)
+        })
+    })
+    $(document).on("submit", "#otp.forgotPassword", function(e) {
+        e.preventDefault()
+        clearGeneralError(otpForm)
+        const val = getOtpValue()
+        const mobile = otpForm.attr("data-number")
+        if (val.length < 5) {
+            return showGeneralError("لطفا کد را کامل وارد کنید", otpForm)
+        }
+        const params = {
+            Mobile: mobile,
+            VerifyCode: val,
+        }
+        setFormLoading(otpForm, true)
+        dummyFetch.post("/ConfirmVerify", null, params)
+        .then(() => {
+            alert("next section")
         })
         .catch(err => {
             showGeneralError(err, otpForm)
