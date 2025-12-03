@@ -26,7 +26,6 @@ const newLogin = $("#newLogin")
     const forgotForm = $("#forgetPassword")
     const loginByCodeForm = $("#login-otp")
     const newPasswordForm = $("#newPassword")
-    activateSection(newPasswordForm)
 
     resend.on("click", () => {
         resend.removeClass("active")
@@ -58,7 +57,7 @@ const newLogin = $("#newLogin")
     }
     
     const activateOtpSection = (number: string, back: string, hasResend: boolean, submitHook: string) => {
-        otpForm.addClass(submitHook)
+        otpForm.attr("data-hook", submitHook)
         otpForm.attr("data-number", number)
         otpForm.find("#numberPlaceholder").text(number)
         otpForm.find("#backBtn").attr("data-target", back)
@@ -210,7 +209,7 @@ const newLogin = $("#newLogin")
     })
 
     // submit handlers
-    $(document).on("submit", "#signup, #login-pass, #newPassword", async function(e) {
+    $(document).on("submit", "#signup, #login-pass", async function(e) {
         e.preventDefault()
         const el = $(e.target)
         const data = formToJSON(e.target as HTMLFormElement)
@@ -222,6 +221,27 @@ const newLogin = $("#newLogin")
         dummyFetch.post(url, data)
         .then(() => {
             alert("success")
+        })
+        .catch((err) => {
+            showGeneralError(err, el)
+        })
+        .finally(() => {
+            setFormLoading(e.currentTarget, false)
+        })
+    })
+    $(document).on("submit", "#newPassword", async function(e) {
+        e.preventDefault()
+        const el = $(e.target)
+        const data = formToJSON(e.target as HTMLFormElement)
+        const url = e.target.dataset.submitto;
+        const ok = validateForm(el)
+        if (!ok || !url) return
+        setFormLoading(e.currentTarget, true)
+
+        dummyFetch.post(url, data)
+        .then(() => {
+            alert("رمز عبور با موفقیت تغییر یافت")
+            activateSection($("#login"))
         })
         .catch((err) => {
             showGeneralError(err, el)
@@ -266,7 +286,7 @@ const newLogin = $("#newLogin")
             setFormLoading(forgotForm, false)
         })
     })
-    $(document).on("submit", "#otp.loginByCode", function(e) {
+    $(document).on("submit", '#otp[data-hook="loginByCode"]', function(e) {
         e.preventDefault()
         clearGeneralError(otpForm)
         const val = getOtpValue()
@@ -290,7 +310,7 @@ const newLogin = $("#newLogin")
             setFormLoading(otpForm, false)
         })
     })
-    $(document).on("submit", "#otp.forgotPassword", function(e) {
+    $(document).on("submit", '#otp[data-hook="forgotPassword"]', function(e) {
         e.preventDefault()
         clearGeneralError(otpForm)
         const val = getOtpValue()
@@ -305,7 +325,7 @@ const newLogin = $("#newLogin")
         setFormLoading(otpForm, true)
         dummyFetch.post("/ConfirmVerify", null, params)
         .then(() => {
-            activateSection("newPassword")
+            activateSection(newPasswordForm)
         })
         .catch(err => {
             showGeneralError(err, otpForm)
