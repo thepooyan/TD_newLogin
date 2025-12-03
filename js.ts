@@ -8,7 +8,7 @@ const newLogin = $("#newLogin")
         $(`[data-group="${targetGroup}"]`).removeClass("active");
         $section.addClass("active");
     }
-    function formToJSON(form: HTMLFormElement) {
+    function formToJSON(form) {
         const data = new FormData(form)
         return Object.fromEntries(data.entries())
     }
@@ -47,7 +47,8 @@ const newLogin = $("#newLogin")
         }, 1000);
     }
     
-    const activateOtpSection = () => {
+    const activateOtpSection = (number: string) => {
+        otp.find("#numberPlaceholder").text(number)
         otp.one("transitionend", () => {
             otp.find("input").eq(0).trigger("focus")
             startTimer()
@@ -204,11 +205,11 @@ const newLogin = $("#newLogin")
         clearGeneralError(otpForm)
         if (!validateForm(otpForm)) return
         setFormLoading(otpForm, true)
+        const data = formToJSON(otpForm[0])
 
         dummyFetch()
         .then(() => {
-            activateOtpSection()
-
+            activateOtpSection(data.Phone as string)
         })
         .catch((err) => {
             showGeneralError(err, otpForm)
