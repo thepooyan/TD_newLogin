@@ -91,6 +91,10 @@ const newLogin = $("#newLogin")
             func: (val:string) => val.length > 0,
             msg: "لطفا فیلد را خالی نگذارید"
         },
+        persian: {
+            func: (val:string) => /^[\p{Script=Arabic} ]+$/u.test(val),
+            msg: "لطفا تنها از کاراکتر های فارسی استفاده کنید"
+        },
         mobile: {
             func: (val: string) => /^\d{11}$/.test(val),
             msg: "شماره موبایل صحیح نمیباشد"
