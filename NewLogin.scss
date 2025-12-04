@@ -287,3 +287,28 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.inputGroup {
+    position: relative;
+
+    .input {
+        padding-left: 2.1rem;
+    }
+
+    .eyeIcon {
+        --size: 1.3rem;
+        width: var(--size);
+        height: var(--size);
+        position: absolute;
+        background: url("https://tahlildadeh.com/Content/icons/eye.svg");
+        background-size: cover;
+        left: .6rem;
+        top: calc(var(--size) / 2);
+        z-index: 10;
+        cursor: pointer;
+
+        &.active {
+            background-image: url("https://tahlildadeh.com/Content/icons/eye-strike-through.svg");
+        }
+    }
+}

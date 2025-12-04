@@ -6,6 +6,12 @@ const newLogin = $("#newLogin")
         $(`[data-group="${targetGroup}"]`).removeClass("active");
         $section.addClass("active");
     }
+    const preloadImage = (href: string) => $('<link>')
+        .attr('rel', 'preload')
+        .attr('as', 'image')
+        .attr('href', href)
+        .appendTo('head')
+
     function formToJSON(form) {
         const data = new FormData(form)
         return Object.fromEntries(data.entries())
@@ -130,7 +136,7 @@ const newLogin = $("#newLogin")
 
         if (!$(ele).hasClass("noError"))
             $(ele)
-                .wrap('<div></div>')
+                .wrap('<div class="inputGroup"></div>')
                 .after($('<span></span>').addClass('validation-error'))
 
         ele.on("input", (e) => {
@@ -333,6 +339,20 @@ const newLogin = $("#newLogin")
         .finally(() => {
             setFormLoading(otpForm, false)
         })
+    })
+
+    preloadImage("https://tahlildadeh.com/Content/icons/eye-strike-through.svg")
+    $('input[type="password"]').each((_,el) => {
+        $("<div class='eyeIcon'></div>").on("click", e => {
+            const icon = $(e.target)
+            if (icon.hasClass("active")) {
+                icon.removeClass("active")
+                $(el).attr("type", "password")
+            } else {
+                icon.addClass("active")
+                $(el).attr("type", "")
+            }
+        }).insertBefore(el)
     })
     
     

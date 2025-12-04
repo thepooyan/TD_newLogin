@@ -390,7 +390,7 @@
             <form id="login-pass" class="section" data-group="login-inner" data-submitTo="/Login">
               <div class="inputs">
                 <input class="input" placeholder="نام کاربری, شماره موبایل" name="Phone" data-val="req"/>
-                <input class="input" placeholder="رمز عبور" name="Password" data-val="req"/>
+                <input class="input" placeholder="رمز عبور" name="Password" data-val="req" type="password"/>
               </div>
               <div class="flex between">
                 <label>
@@ -431,8 +431,8 @@
             <input class="input" placeholder="نام خانوادگی" data-val="req"/>
             <input class="input" placeholder="شماره تلفن" data-val="req,mobile"/>
             <input class="input" placeholder="شماره تلفن معرف (اختیاری)"/>
-            <input class="input" placeholder="رمز عبور" data-val="req" id="password"/>
-            <input class="input" placeholder="تکرار رمز عبور" data-val="req,pass"/>
+            <input class="input" placeholder="رمز عبور" data-val="req" id="password" type="password"/>
+            <input class="input" placeholder="تکرار رمز عبور" data-val="req,pass" type="password"/>
           </div>
 
           <label>
@@ -459,7 +459,7 @@
               لطفا شماره تلفن خود را جهت دریافت کد احراز هویت وارد کنید.
             </p>
           </div>
-          <input class="input" placeholder="شماره موبایل" data-val="req" name="Mobile"/>
+          <input class="input" placeholder="شماره موبایل" data-val="req,mobile" name="Mobile"/>
           <p class="validation-error general"></p>
           <button class="btn">
             دریافت کد
@@ -524,8 +524,8 @@
             <h3>رمز جدید</h3>
           </div>
           <div class="inputs">
-            <input class="input" placeholder="رمز جدید" data-val="req" name="NewPassword" id="password2"/>
-            <input class="input" placeholder="تکرار رمز" data-val="req,pass2"/>
+            <input class="input" placeholder="رمز جدید" data-val="req" name="NewPassword" id="password2" type="password"/>
+            <input class="input" placeholder="تکرار رمز" data-val="req,pass2" type="password"/>
           </div>
           <p class="validation-error general"></p>
           <button class="btn">
