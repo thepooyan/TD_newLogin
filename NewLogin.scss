@@ -31,7 +31,6 @@
         max-width: 35rem;
         margin: auto;
         position: relative;
-        overflow-x: hidden;
 
         .head {
             display: flex;
@@ -55,6 +54,7 @@
 
             .section {
                 position: absolute;
+                top: 0;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
@@ -135,8 +135,12 @@
     }
 
     @include v.media(v.$tablet) {
-        .container .head p {
-            font-size: var(--text-2xl);
+        .container {
+            height: unset;
+
+            .head p {
+                font-size: var(--text-2xl);
+            }
         }
     }
     @include v.media(v.$mobile) {
@@ -146,7 +150,7 @@
                 align-items: center;
             }
             .tabs button {
-                padding: 0;
+                padding-block: 0;
             }
             .grid {
                 grid-template-columns: 1fr;
